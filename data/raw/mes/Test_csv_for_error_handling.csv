@@ -1,0 +1,4 @@
+timestamp,status,cycle_time_ms,output_count,defect_flag
+2025-01-01T08:00:00Z,RUNNING,1200,10,False
+2025-01-01T08:01:30Z,RUNNING,1180,9,False
+2025-01-01T08:03:00Z,RUNNING,1500,8,True

@@ -1,0 +1,63 @@
+2026-07-27 19:19:31,645 - INFO - ========== MES Ingestion Started ==========
+2026-07-27 19:19:31,988 - INFO - machine_logs.csv converted successfully.
+2026-07-27 19:19:32,023 - INFO - production_orders.csv converted successfully.
+2026-07-27 19:19:32,031 - INFO - downtime_events.csv converted successfully.
+2026-07-27 19:19:32,031 - INFO - ========== MES Ingestion Completed ==========
+2026-07-27 19:21:30,452 - INFO - ========== MES Ingestion Started ==========
+2026-07-27 19:21:30,485 - INFO - machine_logs.csv converted successfully.
+2026-07-27 19:21:30,491 - INFO - production_orders.csv converted successfully.
+2026-07-27 19:21:30,497 - INFO - downtime_events.csv converted successfully.
+2026-07-27 19:21:30,498 - INFO - ========== MES Ingestion Completed ==========
+2026-07-27 19:23:02,721 - INFO - ========== MES Ingestion Started ==========
+2026-07-27 19:23:02,773 - INFO - machine_logs.csv converted successfully.
+2026-07-27 19:23:02,778 - INFO - production_orders.csv converted successfully.
+2026-07-27 19:23:02,786 - INFO - downtime_events.csv converted successfully.
+2026-07-27 19:23:02,786 - INFO - ========== MES Ingestion Completed ==========
+2026-07-27 19:46:22,676 - INFO - ========== PLM Ingestion Started ==========
+2026-07-27 19:46:22,879 - INFO - bom.csv converted successfully.
+2026-07-27 19:46:22,897 - INFO - product_metadata.csv converted successfully.
+2026-07-27 19:46:22,906 - INFO - ecn_requests.csv converted successfully.
+2026-07-27 19:46:22,906 - INFO - ========== PLM Ingestion Completed ==========
+2026-07-27 20:04:00,652 - INFO - ========== MES Ingestion Started ==========
+2026-07-27 20:04:00,718 - INFO - machine_logs.csv converted successfully.
+2026-07-27 20:04:00,727 - INFO - production_orders.csv converted successfully.
+2026-07-27 20:04:00,919 - INFO - downtime_events.csv converted successfully.
+2026-07-27 20:04:00,920 - INFO - ========== MES Ingestion Completed ==========
+2026-07-27 20:04:30,553 - INFO - ========== MES Ingestion Started ==========
+2026-07-27 20:04:30,686 - INFO - machine_logs.csv converted successfully.
+2026-07-27 20:04:30,698 - INFO - production_orders.csv converted successfully.
+2026-07-27 20:04:30,707 - INFO - downtime_events.csv converted successfully.
+2026-07-27 20:04:30,708 - INFO - ========== MES Ingestion Completed ==========
+2026-07-27 20:06:57,086 - INFO - ========== MES Ingestion Started ==========
+2026-07-27 20:06:57,129 - ERROR - machine_logs.csv missing columns: ['machine_id']
+2026-07-27 20:06:57,180 - INFO - production_orders.csv converted successfully.
+2026-07-27 20:06:57,189 - INFO - downtime_events.csv converted successfully.
+2026-07-27 20:06:57,189 - INFO - ========== MES Ingestion Completed ==========
+2026-07-27 20:08:11,624 - INFO - ========== MES Ingestion Started ==========
+2026-07-27 20:08:11,697 - INFO - machine_logs.csv converted successfully.
+2026-07-27 20:08:11,707 - INFO - production_orders.csv converted successfully.
+2026-07-27 20:08:11,716 - INFO - downtime_events.csv converted successfully.
+2026-07-27 20:08:11,716 - INFO - ========== MES Ingestion Completed ==========
+2026-07-27 20:13:43,639 - INFO - ========== MES Ingestion Started ==========
+2026-07-27 20:13:43,687 - INFO - machine_logs.csv converted successfully.
+2026-07-27 20:13:43,696 - INFO - production_orders.csv converted successfully.
+2026-07-27 20:13:43,705 - INFO - downtime_events.csv converted successfully.
+2026-07-27 20:13:43,706 - INFO - ========== MES Ingestion Completed ==========
+2026-07-27 20:13:50,202 - INFO - ========== MES Ingestion Started ==========
+2026-07-27 20:13:50,253 - INFO - machine_logs.csv converted successfully.
+2026-07-27 20:13:50,263 - INFO - production_orders.csv converted successfully.
+2026-07-27 20:13:50,275 - INFO - downtime_events.csv converted successfully.
+2026-07-27 20:13:50,275 - WARNING - Test_schema_for_error_handling.csv not found.
+2026-07-27 20:13:50,275 - INFO - ========== MES Ingestion Completed ==========
+2026-07-27 20:15:26,712 - INFO - ========== MES Ingestion Started ==========
+2026-07-27 20:15:26,772 - INFO - machine_logs.csv converted successfully.
+2026-07-27 20:15:26,783 - INFO - production_orders.csv converted successfully.
+2026-07-27 20:15:26,792 - INFO - downtime_events.csv converted successfully.
+2026-07-27 20:15:26,796 - ERROR - Test_schema_for_error_handling.csv missing columns: ['machine_id']
+2026-07-27 20:15:26,802 - INFO - ========== MES Ingestion Completed ==========
+2026-07-27 20:20:54,599 - INFO - ========== MES Ingestion Started ==========
+2026-07-27 20:20:54,649 - INFO - machine_logs.csv converted successfully.
+2026-07-27 20:20:54,659 - INFO - production_orders.csv converted successfully.
+2026-07-27 20:20:54,667 - INFO - downtime_events.csv converted successfully.
+2026-07-27 20:20:54,670 - ERROR - Test_csv_for_error_handling.csv missing columns: ['machine_id']
+2026-07-27 20:20:54,778 - INFO - ========== MES Ingestion Completed ==========
