@@ -11,6 +11,8 @@ This repository contains the Proof of Concept for the MES-PLM Data Pipeline.
 - notebooks
 - docs
 - powerbi
+- .gitignore
+- README.md
 
 ## Completed Tasks
 - Created the project folder structure.
@@ -33,6 +35,21 @@ This repository contains the Proof of Concept for the MES-PLM Data Pipeline.
 # Week 2 - Data Ingestion
 
 The objective of Week 2 was to build a reliable data ingestion pipeline for MES and PLM datasets.
+
+## Folder Structure
+- data/raw/mes
+- data/raw/plm
+- data/landing
+- data/errors
+- logs
+- src/data_gen
+- src/etl
+- src/transform
+- notebooks
+- docs
+- powerbi
+- .gitignore
+- README.md
 
 ## Features Implemented
 - Read raw CSV files using Pandas.
