@@ -61,3 +61,6 @@
 2026-07-27 20:20:54,667 - INFO - downtime_events.csv converted successfully.
 2026-07-27 20:20:54,670 - ERROR - Test_csv_for_error_handling.csv missing columns: ['machine_id']
 2026-07-27 20:20:54,778 - INFO - ========== MES Ingestion Completed ==========
+2026-08-05 15:08:59,519 - INFO - ========== Electrolyser Reference Ingestion Started ==========
+2026-08-05 15:09:01,561 - INFO - electrolyser_reference.csv converted successfully.
+2026-08-05 15:09:01,563 - INFO - ========== Electrolyser Reference Ingestion Completed ==========
