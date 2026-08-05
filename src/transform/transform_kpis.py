@@ -168,7 +168,7 @@ kpi_df["performance_factor"] = (
 kpi_df["quality_factor"] = (
     kpi_df["total_output"] - kpi_df["defects"]
 ) / kpi_df["total_output"]
-kpi_df["quality_factor"] = kpi_df["quality_factor"].fillna(0)
+
 
 #Availability
 kpi_df["availability_factor"] = (
@@ -194,3 +194,21 @@ kpi_df.to_parquet(CURATED_DIR/"production_kpis.parquet",
 
 print("Wrote curated KPIs")
 
+#diagnostic query for OEE NULL- if total output is zero thn defect_rate, avg_cycle_time_ms,quality_factor and oee will be NULL
+# ----- Diagnostic Queries -----
+
+# Count orders with zero total output
+print("\nOrders with zero total_output:")
+print((kpi_df["total_output"] == 0).sum())
+
+# Check which columns contain NULL values
+print("\nNULL values per column:")
+print(kpi_df.isnull().sum())
+
+# Inspect sample rows with missing KPIs
+print("\nSample orders with zero total_output:")
+print(
+    kpi_df[kpi_df["total_output"] == 0][
+        ["order_id", "product_id", "total_output", "defect_rate", "quality_factor", "oee"]
+    ].head(10)
+)

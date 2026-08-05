@@ -189,6 +189,8 @@ Processes:
 - .gitignore
 - README.md
 
+---
+
 ## Objective
 
 Transform the ingested MES and PLM datasets into a curated production KPI dataset by integrating multiple data sources and computing manufacturing KPIs, including OEE.
@@ -317,14 +319,10 @@ Each record represents one production order with computed KPI values.
 ## Files Added
 
 ### Data Generation
-
-- `src/data_gen/synthetic_data.py`
 - `src/data_gen/generate_electrolyser_reference.py`
 
 ### ETL
 
-- `src/etl/ingest_mes.py`
-- `src/etl/ingest_plm.py`
 - `src/etl/ingest_electrolyser_reference.py`
 
 ### Transformation
@@ -338,13 +336,17 @@ Each record represents one production order with computed KPI values.
 
 ---
 
-## Technologies Used
+## Diagnostic Queries
 
-- Python
-- Pandas
-- Parquet
-- Jupyter Notebook
-- VS Code
+Implemented diagnostic queries to validate the transformation pipeline by:
+
+- Identifying columns containing null values.
+- Counting production orders with zero `total_output`.
+- Inspecting sample rows with missing KPI values.
+- Verifying join results between production orders and machine logs.
+- Analyzing null values generated due to unmatched timestamp-based joins.
+
+These diagnostic checks were used to troubleshoot data linkage issues and validate KPI computations before generating the curated dataset.
 
 ---
 
@@ -355,3 +357,5 @@ Each record represents one production order with computed KPI values.
 - OEE Performance is computed using benchmark-based ideal cycle time.
 - Machine logs and production orders are linked using timestamp overlap.
 - Some production orders may not have matching machine logs due to independently generated synthetic datasets, resulting in undefined Quality and OEE values for those records.
+
+
