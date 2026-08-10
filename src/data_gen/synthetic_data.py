@@ -16,7 +16,9 @@ random.seed(42)
 
 # Paramaterized code
 
-BASE_PATH = Path("../data/raw")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+BASE_PATH = PROJECT_ROOT / "data" / "raw"
 
 PLM_PATH = BASE_PATH / "plm"
 MES_PATH = BASE_PATH / "mes"
@@ -504,14 +506,19 @@ print(machine_logs_df.isnull().sum())
 #product_orders.csv
 product_df = pd.read_csv(PLM_PATH / "product_metadata.csv")
 product_df.head()
+print("Products in product_df:", len(product_df))
+print("Unique product IDs:", product_df["product_id"].nunique())
+print("First products:", product_df["product_id"].head(10).tolist())
 
 
 # In[99]:
 
 
+
 production_orders = []
 
-for i in range(NUM_ORDERS):
+# First, create at least one order for every product
+for i, product_id in enumerate(product_df["product_id"], start=1):
 
     start_time = fake.date_time_between(
         start_date="-1y",
@@ -519,15 +526,39 @@ for i in range(NUM_ORDERS):
     )
 
     duration = random.randint(1, 8)
-
     end_time = start_time + pd.Timedelta(hours=duration)
 
     planned_qty = random.randint(100, 500)
-
     actual_qty = planned_qty - random.randint(0, 20)
 
     row = {
-        "order_id": f"ORD-{i+1:04d}",
+        "order_id": f"ORD-{i:04d}",
+        "product_id": product_id,
+        "start_time": start_time,
+        "end_time": end_time,
+        "planned_qty": planned_qty,
+        "actual_qty": actual_qty
+    }
+
+    production_orders.append(row)
+
+
+# Generate the remaining orders randomly
+for i in range(NUM_PRODUCTS + 1, NUM_ORDERS + 1):
+
+    start_time = fake.date_time_between(
+        start_date="-1y",
+        end_date="now"
+    )
+
+    duration = random.randint(1, 8)
+    end_time = start_time + pd.Timedelta(hours=duration)
+
+    planned_qty = random.randint(100, 500)
+    actual_qty = planned_qty - random.randint(0, 20)
+
+    row = {
+        "order_id": f"ORD-{i:04d}",
         "product_id": random.choice(product_df["product_id"]),
         "start_time": start_time,
         "end_time": end_time,
@@ -538,6 +569,7 @@ for i in range(NUM_ORDERS):
     production_orders.append(row)
 
 production_orders_df = pd.DataFrame(production_orders)
+
 
 
 # In[89]:
@@ -556,6 +588,14 @@ production_orders_df.to_csv(
 
 print("production_orders.csv created successfully")
 print(production_orders_df.shape)
+print("Total orders:", len(production_orders_df))
+print("Unique products:", production_orders_df["product_id"].nunique())
+
+missing_products = set(product_df["product_id"]) - set(
+    production_orders_df["product_id"]
+)
+
+print("Products without orders:", missing_products)
 
 
 # In[101]:

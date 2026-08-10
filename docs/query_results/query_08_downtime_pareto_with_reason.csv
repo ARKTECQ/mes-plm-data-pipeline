@@ -1,0 +1,9 @@
+"reason_code","total_downtime_minutes","downtime_percentage","cumulative_percentage"
+"Sensor Fault",6670.00,16.43,16.43
+"Tool Replacement",6055.00,14.91,31.34
+"Power Outage",5893.00,14.51,45.86
+"Machine Failure",5541.00,13.65,59.50
+"Quality Inspection",4946.00,12.18,71.69
+"Operator Break",4447.00,10.95,82.64
+"Scheduled Maintenance",4211.00,10.37,93.01
+"Material Shortage",2837.00,6.99,100.00
