@@ -77,3 +77,16 @@
 2026-08-10 23:25:04,218 - INFO - ========== Electrolyser Reference Ingestion Started ==========
 2026-08-10 23:25:04,388 - INFO - electrolyser_reference.csv converted successfully.
 2026-08-10 23:25:04,388 - INFO - ========== Electrolyser Reference Ingestion Completed ==========
+2026-08-18 01:35:56,926 - INFO - ========== PLM Ingestion Started ==========
+2026-08-18 01:35:58,072 - INFO - bom.csv converted successfully.
+2026-08-18 01:35:58,158 - INFO - product_metadata.csv converted successfully.
+2026-08-18 01:35:58,677 - INFO - ecn_requests.csv converted successfully.
+2026-08-18 01:35:58,677 - INFO - ========== PLM Ingestion Completed ==========
+2026-08-18 12:56:26,396 - INFO - ========== MES Ingestion Started ==========
+2026-08-18 12:56:27,030 - INFO - machine_logs.csv converted successfully.
+2026-08-18 12:56:27,104 - INFO - production_orders.csv converted successfully.
+2026-08-18 12:56:27,155 - INFO - downtime_events.csv converted successfully.
+2026-08-18 12:56:27,156 - INFO - ========== MES Ingestion Completed ==========
+2026-08-18 12:57:12,322 - INFO - ========== Electrolyser Reference Ingestion Started ==========
+2026-08-18 12:57:12,513 - INFO - electrolyser_reference.csv converted successfully.
+2026-08-18 12:57:12,513 - INFO - ========== Electrolyser Reference Ingestion Completed ==========

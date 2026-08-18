@@ -10,7 +10,14 @@ CREATE TABLE IF NOT EXISTS dim_product (
 CREATE TABLE IF NOT EXISTS dim_machine (
     machine_id TEXT PRIMARY KEY
 );
+-- Machine Performance
+CREATE TABLE IF NOT EXISTS machine_performance (
+    machine_id TEXT PRIMARY KEY,
+    avg_cycle_time_ms DOUBLE PRECISION,
 
+    FOREIGN KEY (machine_id)
+        REFERENCES dim_machine(machine_id)
+);
 
 --Time Dimension
 CREATE TABLE IF NOT EXISTS dim_time (

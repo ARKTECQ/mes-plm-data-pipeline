@@ -360,16 +360,6 @@ These diagnostic checks were used to troubleshoot data linkage issues and valida
 
 # Week 4 - Analytical Models & Business Queries
 
-## Objective
-
-The objective of Week 4 was to load the curated production KPI data into an analytical store, design an analytical database schema, and create SQL queries that answer important manufacturing and business questions.
-
-PostgreSQL was used as the local analytical store for the proof of concept.
-
-The analytical layer enables production, quality, downtime, OEE, and engineering-change data to be queried using SQL.
-
----
-
 ## Folder Structure
 
 - data
@@ -452,6 +442,16 @@ The analytical layer enables production, quality, downtime, OEE, and engineering
 - .gitignore
 
 - README.md
+
+---
+
+## Objective
+
+The objective of Week 4 was to load the curated production KPI data into an analytical store, design an analytical database schema, and create SQL queries that answer important manufacturing and business questions.
+
+PostgreSQL was used as the local analytical store for the proof of concept.
+
+The analytical layer enables production, quality, downtime, OEE, and engineering-change data to be queried using SQL.
 
 ---
 
@@ -912,3 +912,404 @@ Analytical SQL Queries
 Business Insights / Query Results
 
 The analytical layer provides a foundation for further visualization and dashboard development using Power BI.
+
+# Week 5 – Power BI Dashboard & Analytics
+
+## Folder Structure 
+ 
+- data 
+ 
+  - raw 
+    - mes 
+      - downtime_events.csv 
+      - machine_logs.csv 
+      - production_orders.csv 
+    - plm 
+      - bom.csv 
+      - ecn_requests.csv 
+      - product_metadata.csv 
+    - electrolyser_reference.csv 
+ 
+  - landing 
+    - machine_logs.parquet 
+    - production_orders.parquet 
+    - downtime_events.parquet 
+    - bom.parquet 
+    - product_metadata.parquet 
+    - ecn_requests.parquet 
+    - electrolyser_reference.parquet 
+ 
+  - curated 
+    - production_kpis.parquet 
+ 
+  - errors 
+    - machine_logs.csv.schema_error.csv 
+    - Test_csv_for_error_handling.csv 
+    - Test_schema_for_error.csv 
+ 
+- logs 
+  - ingest.log 
+ 
+- src 
+ 
+  - data_gen 
+    - synthetic_data.ipynb 
+    - synthetic_data.py 
+    - generate_electrolyser_reference.py 
+ 
+  - etl 
+    - ingest_mes.py 
+    - ingest_plm.py 
+    - ingest_electrolyser_reference.py 
+ 
+  - transform 
+    - transform_kpis.py 
+ 
+  - sql 
+    - schema.sql 
+    - queries.sql 
+    - load_data.py 
+ 
+- notebooks 
+  - week3_kpi_transformation.ipynb 
+ 
+- docs 
+ 
+  - Dataset_Schema.md 
+  - transformation_logic.md 
+  - powerbi_user_guide.md
+ 
+  - screenshots
+    - production_overview.png
+    - machine_performance.png
+    - quality_metrics.png
+    - downtime_analysis.png
+    - engineering_change_impact_overview.png
+    - engineering_change_impact_selected.png
+ 
+  - query_results 
+    - query_01_production_efficiency.csv 
+    - query_02_downtime_ecn.csv 
+    - query_03_defect_rate_ecn.csv 
+    - query_04_top_machines_downtime.csv 
+    - query_05_average_oee.csv 
+    - query_06_monthly_production_trend.csv 
+    - query_07_production_loss_by_product.csv 
+    - query_08_downtime_pareto_with_reason.csv 
+    - query_09_product_production_summary.csv 
+    - query_10_overall_production_kpi.csv 
+ 
+- powerbi 
+  - mes_plm_report.pbix
+ 
+- check_kpi.py 
+ 
+- .gitignore 
+ 
+- README.md
+
+---
+
+## Overview
+
+Week 5 focused on building an interactive Power BI dashboard using the
+curated manufacturing and PLM data prepared during the previous weeks.
+
+The objective was to transform the processed production, machine, quality,
+downtime, and engineering change data into an interactive dashboard that
+provides meaningful operational insights.
+
+---
+
+## Objectives
+
+The main objectives completed during Week 5 were:
+
+- Build an interactive Power BI dashboard.
+- Create production performance KPIs.
+- Analyze machine-level performance.
+- Analyze product quality and defects.
+- Analyze machine downtime.
+- Evaluate the impact of Engineering Change Notifications (ECNs).
+- Create calculated Power BI measures.
+- Add a 3-month rolling average for OEE.
+- Implement interactive filters and slicers.
+- Prepare dashboard documentation and screenshots.
+
+---
+
+# Dashboard Structure
+
+The final Power BI report contains five analytical pages:
+
+1. Production Overview
+2. Machine Performance
+3. Quality Metrics
+4. Downtime Analysis
+5. Engineering Change Impact
+
+---
+
+# 1. Production Overview
+
+### Purpose
+
+Provides a high-level view of production performance and overall equipment
+effectiveness.
+
+### KPIs
+
+- Total Production Orders
+- Total Planned Quantity
+- Total Actual Quantity
+- Average OEE
+
+### Visualizations
+
+- Planned vs Actual Production by Month
+- Monthly OEE Trend
+- 3-Month Rolling Average OEE
+
+### Filters
+
+- Product
+- Production Date
+
+### Key Analysis
+
+The page allows users to compare planned production against actual output
+and monitor OEE trends over time.
+
+The 3-month rolling average smooths monthly OEE fluctuations and provides a
+clearer view of the underlying production performance trend.
+
+---
+
+# 2. Machine Performance
+
+### Purpose
+
+Analyzes machine-level cycle time and downtime performance.
+
+### KPIs
+
+- Total Downtime
+- Average Cycle Time
+
+### Visualizations
+
+- Machine Downtime Ranking
+- Top Downtime Reasons
+- Average Cycle Time by Machine
+- Cycle Time Distribution
+
+### Filter
+
+- Machine
+
+### Key Analysis
+
+The page identifies machines with high downtime and compares the average
+cycle time of different machines.
+
+The cycle-time distribution groups machine average cycle times into ranges
+to provide an overview of cycle-time variation across machines.
+
+---
+
+# 3. Quality Metrics
+
+### Purpose
+
+Monitors product quality and defect performance.
+
+### KPIs
+
+- Total Defects
+- Average Defect Rate
+
+### Visualizations
+
+- Defect Rate by Product
+- Defect Trend by Month
+
+### Filters
+
+- Product
+- Date
+
+### Key Analysis
+
+The page helps identify products with relatively high defect rates and
+observe how defects change over time.
+
+---
+
+# 4. Downtime Analysis
+
+### Purpose
+
+Provides detailed analysis of production downtime.
+
+### KPI
+
+- Total Downtime in Minutes
+
+### Visualizations
+
+- Downtime by Reason
+- Downtime by Machine
+- Downtime Trend Over Time
+
+### Filter
+
+- Date Range
+
+### Key Analysis
+
+The page identifies the major causes of downtime, machines contributing to
+downtime, and changes in downtime over time.
+
+This allows potential production bottlenecks and recurring downtime causes
+to be investigated.
+
+---
+
+# 5. Engineering Change Impact
+
+### Purpose
+
+Evaluates the impact of Engineering Change Notifications (ECNs) on
+production performance and quality.
+
+### Filters
+
+- Change ID
+- Change Type
+
+### KPIs
+
+- Before Change OEE
+- After Change OEE
+- Before Change Defect Rate
+- After Change Defect Rate
+- Selected Change Date
+
+### Visualizations
+
+- OEE Before vs After Change
+- Defect Rate Before vs After Change
+
+### Key Analysis
+
+The page compares production and quality KPIs before and after an
+engineering change.
+
+Users can select a specific Change ID to investigate the impact of an
+individual engineering change.
+
+Two analysis states are supported:
+
+- Engineering Change Overview
+- Selected Engineering Change
+
+---
+
+# Power BI Calculated Measures
+
+The following analytical measures were implemented in Power BI:
+
+### OEE Components
+
+- Average Availability
+- Average Performance
+- Average Quality
+- Average OEE
+
+### Rolling Average
+
+A 3-month rolling average OEE measure was created to identify the underlying
+OEE trend while reducing short-term monthly fluctuations.
+
+Example:
+
+```DAX
+3 Month Rolling Average OEE =
+CALCULATE(
+    AVERAGE('public fact_production_kpis'[oee]),
+    DATESINPERIOD(
+        'public dim_time'[date],
+        MAX('public dim_time'[date]),
+        -3,
+        MONTH
+    )
+)
+```
+
+---
+
+# Understanding the Dashboard
+
+The recommended analysis flow is:
+
+1. Start with **Production Overview** to understand overall production and OEE performance.
+
+2. Move to **Machine Performance** to identify machines with high downtime or cycle times.
+
+3. Use **Quality Metrics** to identify products with high defect rates.
+
+4. Use **Downtime Analysis** to determine the major causes and timing of downtime.
+
+5. Use **Engineering Change Impact** to evaluate whether engineering changes improved production efficiency and product quality.
+
+---
+
+# Troubleshooting
+
+### Dashboard visuals show errors
+
+Check that the required curated data files exist and that the PostgreSQL connection is available.
+
+### Power BI cannot connect to PostgreSQL
+
+Verify:
+
+- PostgreSQL server is running.
+- Server and database names are correct.
+- User credentials are correct.
+- Network connectivity is available.
+
+### Data appears outdated
+
+Select **Home → Refresh** in Power BI Desktop.
+
+### Production order count is incorrect
+
+Verify that the production KPI data contains the expected number of unique orders and refresh the Power BI dataset.
+
+### Engineering Change Impact shows no values
+
+Check that a valid **Change ID** is selected and that the corresponding ECN data is available.
+
+---
+
+# Report Deliverables
+
+The final Power BI report should be saved as:
+
+`powerbi/mes_plm_report.pbix`
+
+Dashboard screenshots should be saved under:
+
+`docs/screenshots/`
+
+Recommended screenshots:
+
+- `production_overview.png`
+- `machine_performance.png`
+- `quality_metrics.png`
+- `downtime_analysis.png`
+- `engineering_change_impact_overview.png`
+- `engineering_change_impact_selected.png`
+
+This user guide provides instructions for opening, refreshing, filtering, and interpreting the Power BI report.

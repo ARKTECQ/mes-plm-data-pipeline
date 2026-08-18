@@ -345,6 +345,10 @@ product_df.head()
 # In[77]:
 
 
+# =========================
+# ECN REQUESTS
+# =========================
+
 change_types = [
     "Design Update",
     "Material Change",
@@ -356,42 +360,62 @@ change_types = [
     "Compliance Update"
 ]
 
-
-# In[78]:
-
-
 ecn_data = []
 
-for i in range(NUM_ECN):
+# Production period
+ecn_start_date = pd.Timestamp("2025-08-15")
+ecn_end_date = pd.Timestamp("2026-08-15")
+
+# Ensure every product gets at least one ECN
+ecn_products = product_df["product_id"].tolist()
+
+# First ECN for every product
+for i, product_id in enumerate(ecn_products, start=1):
+
+    request_date = fake.date_between(
+        start_date=ecn_start_date.date(),
+        end_date=ecn_end_date.date()
+    )
 
     row = {
-        "change_id": f"ECN-{i+1:03d}",
-        "product_id": random.choice(product_df["product_id"]),
+        "change_id": f"ECN-{i:03d}",
+        "product_id": product_id,
         "change_type": random.choice(change_types),
-        "request_date": fake.date_between(
-            start_date="-2y",
-            end_date="today"
-        ),
-       "approved_flag": random.choices(
-    ["True", "False"],
-    weights=[80, 20],
-    k=1
-)[0]
+        "request_date": request_date,
+        "approved_flag": random.choices(
+            ["True", "False"],
+            weights=[80, 20],
+            k=1
+        )[0]
     }
 
     ecn_data.append(row)
 
+
+# Generate remaining ECNs
+for i in range(NUM_PRODUCTS + 1, NUM_ECN + 1):
+
+    request_date = fake.date_between(
+        start_date=ecn_start_date.date(),
+        end_date=ecn_end_date.date()
+    )
+
+    row = {
+        "change_id": f"ECN-{i:03d}",
+        "product_id": random.choice(ecn_products),
+        "change_type": random.choice(change_types),
+        "request_date": request_date,
+        "approved_flag": random.choices(
+            ["True", "False"],
+            weights=[80, 20],
+            k=1
+        )[0]
+    }
+
+    ecn_data.append(row)
+
+
 ecn_df = pd.DataFrame(ecn_data)
-
-
-# In[79]:
-
-
-ecn_df.head()
-
-
-# In[80]:
-
 
 ecn_df.to_csv(
     PLM_PATH / "ecn_requests.csv",
@@ -400,6 +424,21 @@ ecn_df.to_csv(
 
 print("ecn_requests.csv created successfully")
 print(ecn_df.shape)
+
+print("Unique products with ECNs:",
+      ecn_df["product_id"].nunique())
+
+print(
+    "Products without ECN:",
+    set(product_df["product_id"]) - set(ecn_df["product_id"])
+)
+
+print(
+    "ECN date range:",
+    ecn_df["request_date"].min(),
+    "to",
+    ecn_df["request_date"].max()
+)
 
 
 # In[81]:

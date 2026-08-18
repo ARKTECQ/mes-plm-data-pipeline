@@ -95,6 +95,17 @@ dim_machine = logs[
     ["machine_id"]
 ].drop_duplicates().copy()
 
+# Prepare Machine Performance
+machine_performance = (
+    logs.groupby("machine_id", as_index=False)
+    .agg(
+        avg_cycle_time_ms=("cycle_time_ms", "mean")
+    )
+)
+
+print("\nMachine Performance:")
+print(machine_performance)
+
 
 
 # Prepare Time Dimension
@@ -240,14 +251,15 @@ print("Clearing existing analytical data...")
 
 with engine.begin() as connection:
     connection.execute(text("""
-        TRUNCATE TABLE
-            machine_downtime,
-            ecn_events,
-            fact_production_kpis,
-            dim_time,
-            dim_machine,
-            dim_product
-        CASCADE;
+        TRUNCATE TABLE 
+    machine_downtime, 
+    ecn_events, 
+    fact_production_kpis, 
+    machine_performance,
+    dim_time, 
+    dim_machine, 
+    dim_product 
+CASCADE;
     """))
 
 # Load Data into PostgreSQL
@@ -265,6 +277,15 @@ print("Loading dim_machine...")
 
 dim_machine.to_sql(
     "dim_machine",
+    engine,
+    if_exists="append",
+    index=False
+)
+
+print("Loading machine_performance...")
+
+machine_performance.to_sql(
+    "machine_performance",
     engine,
     if_exists="append",
     index=False
