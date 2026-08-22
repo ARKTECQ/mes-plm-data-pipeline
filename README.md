@@ -978,6 +978,7 @@ The analytical layer provides a foundation for further visualization and dashboa
   - Dataset_Schema.md 
   - transformation_logic.md 
   - powerbi_user_guide.md
+  
  
   - screenshots
     - production_overview.png
@@ -1313,3 +1314,220 @@ Recommended screenshots:
 - `engineering_change_impact_selected.png`
 
 This user guide provides instructions for opening, refreshing, filtering, and interpreting the Power BI report.
+---
+
+# Week 6 – CI/CD & Final Documentation
+
+## Folder Structure 
+ 
+- data 
+ 
+  - raw 
+    - mes 
+      - downtime_events.csv 
+      - machine_logs.csv 
+      - production_orders.csv 
+    - plm 
+      - bom.csv 
+      - ecn_requests.csv 
+      - product_metadata.csv 
+    - electrolyser_reference.csv 
+ 
+  - landing 
+    - machine_logs.parquet 
+    - production_orders.parquet 
+    - downtime_events.parquet 
+    - bom.parquet 
+    - product_metadata.parquet 
+    - ecn_requests.parquet 
+    - electrolyser_reference.parquet 
+ 
+  - curated 
+    - production_kpis.parquet 
+ 
+  - errors 
+    - machine_logs.csv.schema_error.csv 
+    - Test_csv_for_error_handling.csv 
+    - Test_schema_for_error.csv 
+    
+- .github
+  - workflows
+    - ci.yml
+ 
+- logs 
+  - ingest.log 
+ 
+- src 
+ 
+  - data_gen 
+    - synthetic_data.ipynb 
+    - synthetic_data.py 
+    - generate_electrolyser_reference.py 
+ 
+  - etl 
+    - ingest_mes.py 
+    - ingest_plm.py 
+    - ingest_electrolyser_reference.py 
+ 
+  - transform 
+    - transform_kpis.py 
+ 
+  - sql 
+    - schema.sql 
+    - queries.sql 
+    - load_data.py 
+ 
+- notebooks 
+  - week3_kpi_transformation.ipynb 
+ 
+- docs 
+ 
+  - Dataset_Schema.md 
+  - transformation_logic.md 
+  - powerbi_user_guide.md
+  - 
+ 
+  - screenshots
+    - production_overview.png
+    - machine_performance.png
+    - quality_metrics.png
+    - downtime_analysis.png
+    - engineering_change_impact_overview.png
+    - engineering_change_impact_selected.png
+ 
+  - query_results 
+    - query_01_production_efficiency.csv 
+    - query_02_downtime_ecn.csv 
+    - query_03_defect_rate_ecn.csv 
+    - query_04_top_machines_downtime.csv 
+    - query_05_average_oee.csv 
+    - query_06_monthly_production_trend.csv 
+    - query_07_production_loss_by_product.csv 
+    - query_08_downtime_pareto_with_reason.csv 
+    - query_09_product_production_summary.csv 
+    - query_10_overall_production_kpi.csv 
+
+  - architecture_diagram.png
+
+  - MES_PLM_Demo_Deck.pptx
+ 
+- powerbi 
+  - mes_plm_report.pbix
+ 
+- check_kpi.py 
+ 
+- .gitignore 
+ 
+- README.md
+
+- requirements.txt
+
+## Repository Organization
+
+The final repository contains the complete MES–PLM data pipeline including:
+
+- Raw datasets
+- Parquet landing and curated datasets
+- ETL scripts
+- KPI transformation scripts
+- PostgreSQL analytical layer
+- SQL queries
+- Power BI dashboard
+- Architecture diagram
+- GitHub Actions workflow
+
+## Running the Pipeline Locally
+
+### 1. Install Python Dependencies
+
+From the project root:
+
+pip install -r requirements.txt
+
+### 2. Run MES Ingestion
+
+python src/etl/ingest_mes.py
+
+### 3. Run PLM Ingestion
+
+python src/etl/ingest_plm.py
+
+### 4. Run Electrolyser Reference Ingestion
+
+python src/etl/ingest_electrolyser_reference.py
+
+### 5. Run KPI Transformation
+
+python src/transform/transform_kpis.py
+
+This generates:
+
+data/curated/production_kpis.parquet
+
+### 6. Load Data into PostgreSQL
+
+Run:
+
+python src/sql/load_data.py
+
+The processed datasets are loaded into the PostgreSQL analytical database.
+
+### 7. Run Analytical SQL Queries
+
+The 10 business queries are available in:
+
+src/sql/queries.sql
+
+They can be executed using PostgreSQL/pgAdmin for production, quality, downtime, OEE and engineering-change analysis.
+
+### 8. Open Power BI Dashboard
+
+Open:
+
+powerbi/mes_plm_report.pbix
+
+Refresh the data and use the available filters and dashboard pages for analysis.
+
+## GitHub Actions
+
+A basic CI workflow was implemented at:
+
+.github/workflows/ci.yml
+
+The workflow:
+
+- Runs automatically on push and pull requests to main.
+- Sets up Python.
+- Installs project dependencies.
+- Runs Flake8 linting.
+- Performs a basic CI smoke test.
+
+The workflow was successfully executed using GitHub Actions.
+
+## Architecture Documentation
+
+The final pipeline architecture diagram is available at:
+
+docs/architecture_diagram.png
+
+The architecture represents:
+
+Raw Data Sources
+→ Ingestion
+→ Landing
+→ Transformation & KPI Computation
+→ Curated Dataset
+→ PostgreSQL Analytics
+→ Power BI Dashboard
+
+## Project Outcome
+
+The final project provides an end-to-end MES–PLM analytics pipeline that:
+
+- Ingests and validates manufacturing data.
+- Converts raw data into Parquet format.
+- Calculates production KPIs including OEE.
+- Stores analytical data in PostgreSQL.
+- Provides 10 analytical SQL queries.
+- Provides an interactive 5-page Power BI dashboard.
+- Includes basic CI automation using GitHub Actions.
